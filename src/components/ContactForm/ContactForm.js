@@ -1,9 +1,12 @@
 import { Formik, ErrorMessage  } from 'formik';
 import * as Yup from 'yup';
+import { nanoid } from "nanoid";
+import { ImUserPlus } from "react-icons/im";
 
 
-import { Styleform, StyledField, StyledLabel, ErrorMessageStyled } from './ContactForm.styled';
+import { Styleform, StyledField, StyledLabel, ErrorMessageStyled, HeroTitleStyled, SubmitBtn } from './ContactForm.styled';
 
+const icon = <ImUserPlus/>;
 const schema = Yup.object().shape({
   name: Yup.string()
     .matches(
@@ -23,7 +26,7 @@ const schema = Yup.object().shape({
     .max(50, 'Too Long!'),
 });
 
-export const ContactForm = (onAdd) => {
+export const ContactForm = ({onAdd}) => {
   return (
     <Formik
       initialValues={{
@@ -33,12 +36,13 @@ export const ContactForm = (onAdd) => {
       validationSchema={schema}
       onSubmit={(values, actions) => {
         console.log(values);
-        onAdd(values);
+        onAdd({...values, id: nanoid()});
         actions.resetForm();
       }}
     >
       {({ handleSubmit }) => (
         <Styleform onSubmit={handleSubmit}>
+          <HeroTitleStyled>Phonebooke</HeroTitleStyled>
           <StyledLabel>Name</StyledLabel>
           <StyledField name="name" />
           <ErrorMessage name="name" component={ErrorMessageStyled} />
@@ -47,7 +51,7 @@ export const ContactForm = (onAdd) => {
           <StyledField name="number" />
           <ErrorMessage name="number" component={ErrorMessageStyled} />
 
-          <button type="submit">Add contact</button>
+          <SubmitBtn type="submit">{icon} Add contact</SubmitBtn>
         </Styleform>
       )}
     </Formik>
