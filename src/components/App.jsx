@@ -1,4 +1,7 @@
-import { Component } from "react"
+import { Component } from "react";
+import { ContactForm } from "./ContactForm/ContactForm";
+// import { nanoid } from "nanoid";
+
 
 export class App extends Component {
   state ={
@@ -6,20 +9,27 @@ export class App extends Component {
      name: ''
   }
 
-  render(){
-      return (
- <div>
-        <input
-    type="text"
-    name="name"
-    pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-    title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-    required
-  />
-  </div>
+addContact = newContact => {
+  console.log(newContact)
+}
+ render(){
+  return (
+    <div>
+     <h1>PhoneBook</h1>
+   <ContactForm onAdd={this.addContact} />
+     <h2>Contacts</h2>
+     
+   
+     </div>
+  )   
+ }
+
+}
   
-  )
-  }
+  
 
 
-};
+
+
+
+
